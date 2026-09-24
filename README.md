@@ -16,6 +16,57 @@ O projeto implementa o padrão estrutural **Decorator** para permitir que novos 
 - **Decorator (`CakeDecorator`):** A classe abstrata que atua como invólucro (wrapper). Ela herda de `Cake` e também compõe um objeto `Cake`, repassando as chamadas de métodos para o bolo envolvido por padrão.
 - **Concrete Decorators (`MultiLayered`, `Sprinkles`, `Saying`):** Classes concretas que estendem `CakeDecorator`. Elas interceptam a execução antes ou depois do objeto embrulhado, alterando a string da descrição e incrementando valores ao preço final (com exceção do `Saying`, que apenas adiciona texto mantendo o custo).
 
+### Diagrama de Classes
+
+```mermaid
+classDiagram
+    class Cake {
+        <<abstract>>
+        -int CAKE_COST
+        +getCost() int
+        +getDescription()* String
+    }
+    class VanillaCake {
+        +getDescription() String
+    }
+    class ChocolateCake {
+        +getCost() int
+        +getDescription() String
+    }
+    class StrawberryCake {
+        +getCost() int
+        +getDescription() String
+    }
+    class CakeDecorator {
+        <<abstract>>
+        #Cake cake
+        +getCost() int
+        +getDescription() String
+    }
+    class MultiLayered {
+        +getCost() int
+        +getDescription() String
+    }
+    class Sprinkles {
+        +getCost() int
+        +getDescription() String
+    }
+    class Saying {
+        +String saying
+        +getCost() int
+        +getDescription() String
+    }
+    
+    Cake <|-- VanillaCake
+    Cake <|-- ChocolateCake
+    Cake <|-- StrawberryCake
+    Cake <|-- CakeDecorator
+    CakeDecorator o-- Cake
+    CakeDecorator <|-- MultiLayered
+    CakeDecorator <|-- Sprinkles
+    CakeDecorator <|-- Saying
+```
+
 ## 🚀 Como Executar
 
 O projeto não requer gerenciadores de dependência externos e pode ser executado diretamente no terminal local.
